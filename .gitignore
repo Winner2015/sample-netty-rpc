@@ -1,0 +1,4 @@
+/netty-rpc-common/target/
+/netty-rpc-core/target/
+/netty-rpc-test-client/
+/netty-rpc-test-server/
