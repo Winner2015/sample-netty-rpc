@@ -3,3 +3,6 @@
 /netty-rpc-test-client/
 /netty-rpc-test-server/
 /.idea/
+/netty-rpc-common/netty-rpc-common.iml
+/netty-rpc-core/netty-rpc-core.iml
+/sample-netty-rpc.iml
