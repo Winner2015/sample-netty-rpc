@@ -1,18 +1,16 @@
 package winer.clf.netty.rpc.core.client;
 
 import com.alibaba.fastjson.JSON;
+import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.netty.channel.ChannelPromise;
+import winer.clf.netty.rpc.common.param.RpcRequest;
 import winer.clf.netty.rpc.common.param.RpcResponse;
 
 /**
  * @author chenlongfei
  */
-public class RpcClientHandler extends ChannelInboundHandlerAdapter {
-
-    private static final Logger logger = LoggerFactory.getLogger(RpcClientHandler.class);
+public class RpcClientHandler extends ChannelDuplexHandler {
 
     private RpcResponsePool rpcResponsePool;
 
@@ -21,11 +19,22 @@ public class RpcClientHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        logger.info("RpcClientHandler channelRead: " + JSON.toJSONString(msg));
-        RpcResponse response = (RpcResponse)msg;
-        rpcResponsePool.putResponse(response);
-        ctx.fireChannelRead(msg);
+    public void channelRead (ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (msg instanceof RpcResponse) {
+            System.out.println("receive server response: " + JSON.toJSONString(msg));
+            RpcResponse resp = (RpcResponse) msg;
+            rpcResponsePool.putResponse(resp);
+        }
+        super.channelRead(ctx, msg);
     }
 
+    @Override
+    public void write (ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
+        if (msg instanceof RpcRequest) {
+            System.out.println("send request: " + JSON.toJSONString(msg));
+            RpcRequest req = (RpcRequest) msg;
+            rpcResponsePool.putRequest(req.getId());
+        }
+        super.write(ctx, msg, promise);
+    }
 }

@@ -13,8 +13,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import winer.clf.netty.rpc.core.config.RpcService;
-import winer.clf.netty.rpc.core.config.RpcServiceRegistry;
-import winer.clf.netty.rpc.core.config.SimpleRpcServiceRegistry;
 
 import java.util.Map;
 
@@ -25,7 +23,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcServer.class);
 
-    private RpcServiceRegistry rpcServiceRegistry = new SimpleRpcServiceRegistry();
+    private RpcProviderRegistry rpcServiceRegistry = new RpcProviderRegistry();
 
     private String host;
     private int port;

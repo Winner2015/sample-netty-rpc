@@ -8,7 +8,6 @@ import winer.clf.netty.rpc.common.param.RpcRequest;
 import winer.clf.netty.rpc.common.param.RpcResponse;
 import winer.clf.netty.rpc.core.codec.CommonRpcDecoder;
 import winer.clf.netty.rpc.core.codec.CommonRpcEncoder;
-import winer.clf.netty.rpc.core.config.RpcServiceRegistry;
 import winer.clf.netty.rpc.core.serialization.FastJsonSerialization;
 
 /**
@@ -16,9 +15,9 @@ import winer.clf.netty.rpc.core.serialization.FastJsonSerialization;
  */
 public class RpcServerChannelInitializer extends ChannelInitializer<SocketChannel> {
 
-    private RpcServiceRegistry rpcServiceRegistry;
+    private RpcProviderRegistry rpcServiceRegistry;
 
-    public RpcServerChannelInitializer (RpcServiceRegistry rpcServiceRegistry) {
+    public RpcServerChannelInitializer (RpcProviderRegistry rpcServiceRegistry) {
         this.rpcServiceRegistry = rpcServiceRegistry;
     }
 
@@ -30,10 +29,12 @@ public class RpcServerChannelInitializer extends ChannelInitializer<SocketChanne
         //InboundHandler，执行顺序为注册顺序
         pipeline.addLast(new LengthFieldBasedFrameDecoder(65535,0,4));
         pipeline.addLast(new CommonRpcDecoder(new FastJsonSerialization(), RpcRequest.class));
-        pipeline.addLast(new RpcServerHandler(rpcServiceRegistry));
 
         //OutboundHandler，执行顺序为注册顺序的逆序
         pipeline.addLast(new CommonRpcEncoder(new FastJsonSerialization(), RpcResponse.class));
+        pipeline.addLast(new RpcServerHandler(rpcServiceRegistry));
+
+
 
     }
 }

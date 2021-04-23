@@ -1,5 +1,6 @@
 package winer.clf.netty.rpc.test.client;
 
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,9 +16,12 @@ import java.util.UUID;
 @SpringBootApplication
 public class ClientApp {
 
-    public static void main(String [] args) {
+    public static void main(String [] args) throws InterruptedException {
 
         ConfigurableApplicationContext context = SpringApplication.run(ClientApp.class);
+
+        AutowireCapableBeanFactory autowireCapableBeanFactory = context.getAutowireCapableBeanFactory();
+
 
         RpcClient rpcClient = (RpcClient)context.getBean("rpcClient");
 

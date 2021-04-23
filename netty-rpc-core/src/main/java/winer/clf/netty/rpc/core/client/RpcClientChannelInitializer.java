@@ -26,13 +26,11 @@ public class RpcClientChannelInitializer extends ChannelInitializer<SocketChanne
 
         ChannelPipeline pipeline = ch.pipeline();
 
-        //InboundHandler，执行顺序为注册顺序
         pipeline.addLast(new LengthFieldBasedFrameDecoder(65535,0,4));
-        pipeline.addLast(new CommonRpcDecoder(new FastJsonSerialization(), RpcResponse.class));
-        pipeline.addLast(new RpcClientHandler(rpcResponsePool));
-
-        //OutboundHandler，执行顺序为注册顺序的逆序
         pipeline.addLast(new CommonRpcEncoder(new FastJsonSerialization(), RpcRequest.class));
+        pipeline.addLast(new CommonRpcDecoder(new FastJsonSerialization(), RpcResponse.class));
+
+        pipeline.addLast(new RpcClientHandler(rpcResponsePool)); //即使InboundHandler，又是OutboundHandler，必须放在最后
 
     }
 

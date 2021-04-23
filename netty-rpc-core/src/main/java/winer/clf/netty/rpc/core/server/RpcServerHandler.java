@@ -5,7 +5,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import winer.clf.netty.rpc.common.param.RpcRequest;
 import winer.clf.netty.rpc.common.param.RpcResponse;
-import winer.clf.netty.rpc.core.config.RpcServiceRegistry;
 
 import java.lang.reflect.Method;
 
@@ -14,9 +13,9 @@ import java.lang.reflect.Method;
  */
 public class RpcServerHandler extends ChannelInboundHandlerAdapter{
 
-    private RpcServiceRegistry rpcServiceRegistry;
+    private RpcProviderRegistry rpcServiceRegistry;
 
-    public RpcServerHandler (RpcServiceRegistry rpcServiceRegistry) {
+    public RpcServerHandler (RpcProviderRegistry rpcServiceRegistry) {
         this.rpcServiceRegistry = rpcServiceRegistry;
     }
 

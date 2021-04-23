@@ -14,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 @Service
 public class TimeServiceImpl implements TimeService {
 
-    private static final String TIME_PATTERN = "当前北京时间为：yyyy年MM月dd HH:mm:ss";
+    private static final String TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     @Override
     public String getTime () {
