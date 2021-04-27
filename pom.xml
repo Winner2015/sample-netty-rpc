@@ -83,7 +83,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>winer.clf.netty.rpc.test.server.ServerApp</mainClass>
+                    <mainClass>ServerApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>
