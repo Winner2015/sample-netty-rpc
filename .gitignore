@@ -1,7 +1,7 @@
 /netty-rpc-common/target/
 /netty-rpc-core/target/
-/netty-rpc-test-client/
-/netty-rpc-test-server/
+/netty-rpc-test-client/target/
+/netty-rpc-test-server/target/
 /.idea/
 /netty-rpc-common/netty-rpc-common.iml
 /netty-rpc-core/netty-rpc-core.iml
