@@ -6,3 +6,5 @@
 /netty-rpc-common/netty-rpc-common.iml
 /netty-rpc-core/netty-rpc-core.iml
 /sample-netty-rpc.iml
+/netty-rpc-test-client/netty-rpc-test-client.iml
+/netty-rpc-test-server/netty-rpc-test-server.iml
