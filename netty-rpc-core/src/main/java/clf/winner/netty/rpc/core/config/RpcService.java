@@ -1,7 +1,5 @@
 package clf.winner.netty.rpc.core.config;
 
-import org.springframework.stereotype.Component;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

@@ -21,7 +21,7 @@ public class RpcClient {
 
     private static final Logger logger = LoggerFactory.getLogger(RpcClient.class);
 
-    private InetSocketAddress remoteAddress;
+    private InetSocketAddress remoteAddress; //服务器地址
 
     public RpcClient(InetSocketAddress remoteAddress) {
         this.remoteAddress = remoteAddress;
@@ -29,8 +29,8 @@ public class RpcClient {
 
     private AtomicBoolean connected = new AtomicBoolean(false);
 
-    private Channel channel;
-    private RpcResponsePool rpcResponsePool;
+    private Channel channel; //连接服务器成功后，会获取一个Channel
+    private RpcResponsePool rpcResponsePool; //存储RPC的调用结果
 
     public void connect () {
 
@@ -42,7 +42,7 @@ public class RpcClient {
                 channel(NioSocketChannel.class)
                 .option(ChannelOption.SO_KEEPALIVE, true)
                 .option(ChannelOption.TCP_NODELAY, true)
-                .handler(new RpcClientChannelInitializer(rpcResponsePool));
+                .handler(new RpcClientChannelInitializer(rpcResponsePool)); //注册编解码器、客户端处理器等
 
         try {
             channel = bootstrap.connect(remoteAddress).sync().channel();
@@ -54,11 +54,12 @@ public class RpcClient {
     }
 
     public RpcResponse sendRequest (RpcRequest request) throws InterruptedException {
-        if (connected.compareAndSet(false, true)) {
+        if (connected.compareAndSet(false, true)) { //防止重复连接
             connect ();
         }
 
-        channel.writeAndFlush(request).sync(); //发送完成之前，阻塞
+        channel.writeAndFlush(request).sync(); //发送完成之前，会阻塞住
+
         return rpcResponsePool.takeResponse(request.getId());
     }
 

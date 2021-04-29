@@ -34,7 +34,5 @@ public class RpcServerChannelInitializer extends ChannelInitializer<SocketChanne
         pipeline.addLast(new CommonRpcEncoder(new FastJsonSerialization(), RpcResponse.class));
         pipeline.addLast(new RpcServerHandler(rpcServiceRegistry));
 
-
-
     }
 }

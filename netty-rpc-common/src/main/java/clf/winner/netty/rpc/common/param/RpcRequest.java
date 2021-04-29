@@ -4,7 +4,7 @@ package clf.winner.netty.rpc.common.param;
  * @author chenlongfei
  */
 public class RpcRequest {
-    private String id;
+    private String id; //调用编号
     private String className;// 类名
     private String methodName;// 方法名
     private Class<?>[] parameterTypes;// 参数类型

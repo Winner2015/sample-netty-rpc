@@ -32,6 +32,7 @@ public class RpcInvoker implements InvocationHandler {
         r.setParameterTypes(method.getParameterTypes());
         r.setParameters(args);
 
+        //通过Netty的发送请求，并接受调用结果
         RpcResponse response = rpcClient.sendRequest(r);
         if (response.getCode() == -1) {
             throw new RuntimeException("invoke rpc service failed: " + response.getMsg());

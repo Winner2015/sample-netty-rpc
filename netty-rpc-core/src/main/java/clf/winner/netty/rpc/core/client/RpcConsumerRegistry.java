@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class RpcConsumerRegistry implements BeanFactoryPostProcessor {//BeanDefinitionRegistryPostProcessor
 
-    private List<RpcConsumerConfig> configList;
+    private List<RpcConsumerConfig> configList; //RPC服务的配置信息
 
     @Override
     public void postProcessBeanFactory (ConfigurableListableBeanFactory configurableListableBeanFactory) throws BeansException {
@@ -24,16 +24,19 @@ public class RpcConsumerRegistry implements BeanFactoryPostProcessor {//BeanDefi
             return;
         }
 
+        //将代理类注册为Spring的bean
         configList.forEach(config -> {
             Object beanInstance = createProxy(config);
             configurableListableBeanFactory.registerSingleton(config.getBeanId(), beanInstance);
         });
     }
 
+    /**
+     * 创建远程服务的本地代理
+    */
     public <T> T createProxy(RpcConsumerConfig config) throws BeansException{
         try {
             Class<?> clazz = Class.forName(config.getInterfaceClass());
-
 
             InetSocketAddress remoteAddress = InetSocketAddress.createUnresolved(config.getServerHost(), config.getServerPort());
             RpcClient rpcClient = new RpcClient(remoteAddress);

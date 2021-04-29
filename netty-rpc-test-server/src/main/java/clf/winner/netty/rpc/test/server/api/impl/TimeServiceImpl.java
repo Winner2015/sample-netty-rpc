@@ -1,5 +1,6 @@
 package clf.winner.netty.rpc.test.server.api.impl;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import clf.winner.netty.rpc.core.config.RpcService;
 import clf.winner.netty.rpc.test.server.api.TimeService;
@@ -11,7 +12,7 @@ import java.time.format.DateTimeFormatter;
  * @author chenlongfei
  */
 @RpcService
-@Service
+@Component
 public class TimeServiceImpl implements TimeService {
 
     private static final String TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";

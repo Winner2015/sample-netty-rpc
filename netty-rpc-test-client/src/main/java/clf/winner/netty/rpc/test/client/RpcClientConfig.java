@@ -1,11 +1,10 @@
 package clf.winner.netty.rpc.test.client;
 
 import clf.winner.netty.rpc.core.client.RpcConsumerRegistry;
+import clf.winner.netty.rpc.core.config.RpcConsumerConfig;
 import com.google.common.collect.Lists;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import clf.winner.netty.rpc.core.config.RpcConsumerConfig;
 
 import java.util.List;
 
@@ -15,17 +14,12 @@ import java.util.List;
 @Configuration
 public class RpcClientConfig {
 
-    @Value("${rpc.server.host}")
-    private String host;
-
-    @Value("${rpc.server.port}")
-    private int port;
-
     @Bean
     public List<RpcConsumerConfig> rpcConsumerConfigList() {
 
         List<RpcConsumerConfig> configList = Lists.newArrayList();
 
+        //服务提供者的配置信息
         RpcConsumerConfig timeServiceConfig = new RpcConsumerConfig();
         timeServiceConfig.setServerHost("127.0.0.1");
         timeServiceConfig.setServerPort(13888);

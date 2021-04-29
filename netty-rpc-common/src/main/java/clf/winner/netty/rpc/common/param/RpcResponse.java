@@ -4,10 +4,10 @@ package clf.winner.netty.rpc.common.param;
  * @author chenlongfei
  */
 public class RpcResponse {
-    private String requestId;
-    private int code;
-    private String msg;
-    private Object data;
+    private String requestId; //对应的调用编号
+    private int code; //响应码
+    private String msg; //异常信息
+    private Object data; //调用结果
 
     public String getRequestId () {
         return requestId;
